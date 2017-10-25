@@ -1,0 +1,42 @@
+{
+    "reportId": "Rpt10000101",
+    "reportName": "School Grades",
+    "reportUrl": "http://public.tableau.com/views/RegionalSampleWorkbook/College",
+    "reportDate": "10/1/2017",
+    "lastUpdated":"10/1/2017",
+    "comments": [
+        {
+        "commentId": "c100001",
+        "userId": "af31896",
+        "timestamp" : "10/3/2017",
+        "commentText": "First comment to the report",
+        "responded": true,
+        "responses": [
+            {
+            "responseId" : "r10001",
+            "userId": "af31896",
+            "timestamp": "10/3/2017",
+            "responseText" : "first response to the comment"
+            }
+            ]
+        },
+        {
+        "commentId": "c100002",
+        "userId": "af31896",
+        "timestamp" : "10/1/2017",
+        "commentText": "2nd comment to the report",
+        "responded": true,
+        "responses": [
+            {
+            "responseId" : "r10002",
+            "userId": "af31896",
+            "timestamp": "10/2/2017",
+            "responseText" : "2nd response to the comment"
+            }
+            ]
+        },
+        {},
+        {}
+    ]
+
+} 
