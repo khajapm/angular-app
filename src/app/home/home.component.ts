@@ -11,18 +11,29 @@ import 'rxjs/add/operator/map';
 export class HomeComponent implements OnInit, AfterViewInit {
 
   private dummyData;
+  private pieData;
 
   constructor(private _http: Http) { }
 
   ngOnInit() {
+   
+  }
+
+  recievedChartData(data:string){
+    if(data == 'pie'){
+       this.pieData = data;
+    }else{
+      this.pieData = null;
+    }
+    console.log(data);
   }
   
-  ngAfterViewInit():void{
-    this._http.get('/posts')
-        .map((response: Response) => <any>response.json())
-        .subscribe((data) => {
-          this.dummyData = data;
-        })
+  ngAfterViewInit():void {
+    // this._http.get('/posts')
+    //     .map((response: Response) => <any>response.json())
+    //     .subscribe((data) => {
+    //       this.dummyData = data;
+    //     })
   }
 
 }

@@ -16,6 +16,8 @@ import { LoginComponent } from './login/login.component';
 import { appRoutes } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import { PieComponent } from './pie/pie.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { HomeComponent } from './home/home.component';
     ReportComponent,
     CommentComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    SideNavComponent,
+    PieComponent
   ],
   imports: [
     BrowserModule,
