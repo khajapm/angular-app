@@ -1,0 +1,27 @@
+<div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <ul class="nav navbar-right top-nav">            
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">User <b class="fa fa-angle-down"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a routerLink="/login"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a data-toggle="collapse" data-target="#chart-menu" #chartOptions>
+                      <i class="fa fa-bar-chart"></i> 
+                       Charts 
+                      <i class="fa fa-fw fa-angle-down pull-right"></i>
+                    </a>
+                    <ul id="chart-menu" class="collapse">
+                        <li><a (click)="showViz('pie')" [ngClass]="{'nav-color': chartType === 'pie'}"><i class="fa fa-pie-chart"></i> Pie</a></li>
+                        <li><a (click)="showViz('donut')" [ngClass]="{'nav-color': chartType === 'donut'}"><i class="fa fa-bullseye"></i> Donut</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

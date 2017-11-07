@@ -1,0 +1,40 @@
+<table class="table table-bordered pie-table" *ngIf="chartInfo.length > 0">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Data</th>
+        <th>Color</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of chartInfo; let i = index;">
+        <td>
+            <span>{{data.id}}</span>
+        </td>
+        <td>
+            <span *ngIf="!data.editable">{{data.data}}</span>
+            <span *ngIf="data.editable">
+                <input type="text" class="form-control" [(ngModel)]="data.data">
+            </span>
+        </td>
+        <td>
+            <span *ngIf="!data.editable">{{data.color | uppercase}}</span>
+            <!-- <span *ngIf="data.editable">
+                <input type="text" class="form-control" [(ngModel)]="data.color">
+            </span> -->
+            <span *ngIf="data.editable">
+                <input type="text" class="basic{{i}}" style="width:10px">
+            </span>
+        </td>
+        <td>
+            <span *ngIf="!data.editable" class="glyphicon glyphicon-plus" style="cursor:pointer" (click)="addData()"></span>
+            <span *ngIf="!data.editable" class="glyphicon glyphicon-pencil" style="cursor:pointer" (click)="editData(data,i)"></span>
+            <span *ngIf="!data.editable" class="glyphicon glyphicon-minus" style="cursor:pointer" (click)="deleteData(data,i)"></span>
+            <span *ngIf="data.editable" class="glyphicon glyphicon-ok" style="cursor:pointer" (click)="saveData(data)"></span>
+            <span *ngIf="data.editable" class="glyphicon glyphicon-remove" style="cursor:pointer" (click)="retainData(data,i)"></span>
+        </td>
+      </tr>
+    </tbody>
+</table>
+<div class="pie-chart" #chart></div>

@@ -1,0 +1,11 @@
+<!--emiited chart data form side nav(child) to home(parent)-->
+<app-side-nav (emitChartData)="recievedChartData($event)"></app-side-nav>
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row" id="main" >
+            <div *ngIf="pieData">
+                <app-pie [chartdata]="pieData"></app-pie>
+            </div>
+        </div>
+    </div>
+</div>
