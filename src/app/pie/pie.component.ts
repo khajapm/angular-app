@@ -1,70 +1,205 @@
-import { Component, OnInit, Input, OnChanges, ElementRef } from '@angular/core';
+import { Component, Input, OnChanges, ElementRef } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import 'rxjs/add/operator/map';
+declare var $:any;
+declare var spectrum:any;
 import * as d3 from 'd3';
+//import * as spectrum from 'spectrum';
 
 @Component({
   selector: 'app-pie',
   templateUrl: './pie.component.html',
   styleUrls: ['./pie.component.css']
 })
-export class PieComponent implements OnInit, OnChanges {
+export class PieComponent implements OnChanges {
 
-  @Input() private chartdata: Array<any>;
+  @Input() private chartdata;
+  private chartInfo: Array<any> = [];
+  private originalChartInfo: Array<any> = [];
+  constructor(private chart: ElementRef, private _http: Http) { }
 
-  constructor(private chart: ElementRef) { }
-
-  ngOnInit() {
+  ngAfterContentInit(){
+    
   }
 
   ngOnChanges(){
+    this.processChartData();
+  }
+
+  processChartData(){
     if (this.chart) {
-      this.updateChart();
+      this.chartInfo = this.chartInfo.length >0 ? this.chartInfo : this.chartdata.data;
+      this.chartInfo.forEach(obj=>{
+        obj['editable'] = false;
+        obj['isNew'] = false;
+      });
+      this.originalChartInfo = JSON.parse(JSON.stringify(this.chartInfo));
+      this.updateChart(this.chartdata.type);
     }
   }
 
-  updateChart(){
-    let data = [10, 20, 100];
+  addData() {
+      let id = parseInt(this.chartInfo[this.chartInfo.length-1].id, 10);
+      this.chartInfo.push({id:id+1,data:null,color:''});
+      let index = this.chartInfo.length-1;
+      this.chartInfo[index]['editable'] = true;
+      this.chartInfo[index]['isNew'] = true;
+      
+      setTimeout(() => {
+        $(".basic" + index).spectrum({
+             color: this.chartInfo[index].color,
+             change: (color) => {
+                this.chartInfo[index].color = color.toHexString();
+             }
+           });
+        })
+  }
+  
+  editData(data, index){
+    data.editable = true;
+    setTimeout(() => {
+        $(".basic" + index).spectrum({
+            color: data.color,
+            change: function(color) {
+                data.color = color.toHexString();
+            }
+        });
+    })
+  }
 
-    let width = 960,
-        height = 500,
-        radius = Math.min(width, height) / 2;
+  //need to refactor later - remove it from side nav component
+  getAllChartData(){
+    this._http.get('/pie')
+    .map((response: Response) => <any>response.json())
+    .subscribe((data) => {
+        this.chartInfo = data;
+        this.processChartData();
+    });
+  }
 
-    let color = d3.scaleOrdinal()
-        .range(["#98abc5", "#8a89a6", "#7b6888"]);
+  saveData(data){
+    this._http.post('/addPie', data)
+    .subscribe((res) => {
+        data.editable = false;
+        this.getAllChartData();
+    })
+  }
 
-    let arc = d3.arc()
-        .outerRadius(radius - 10)
-        .innerRadius(0);
+  deleteData(data, index){
+    if(data.isNew){
+        this.chartInfo.splice(index,1);
+    }else{
+        this._http.post('/deletePie', data)
+        .subscribe((res) => {
+            this.getAllChartData();
+        })
+    }
+  }
 
-    let labelArc = d3.arc()
-        .outerRadius(radius - 40)
-        .innerRadius(radius - 40);
+  retainData(data,index){
+    data.editable = false;
+    if(data.isNew){
+       this.chartInfo.splice(index,1);
+    }else{
+       this.chartInfo[index] = JSON.parse(JSON.stringify(this.originalChartInfo[index]));
+    }
+  }
 
-    let pie = d3.pie()
-        .sort(null)
-        .value(function(d) { return d; });
+  paintPie(){
+    
+    let w = 400, h = 400, r = h/2, data = [], colors = [];
+    this.chartInfo.forEach(obj=>{
+        data.push({value:obj.data});
+        colors.push(obj.color);
+    });
 
     d3.select("body").selectAll("div.pie-chart").html('');
+    
+    let vis = d3.select("body").selectAll("div.pie-chart").append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 
-    let svg = d3.select("body").selectAll("div.pie-chart").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("style","display:block;margin:0 auto")
-      .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    let pie = d3.layout.pie().value(function(d){return d.value;});
 
-      let g = svg.selectAll(".arc")
-          .data(pie(data))
-        .enter().append("g")
-          .attr("class", "arc");
+    let arc = d3.svg.arc().outerRadius(r);
 
-      g.append("path")
-          .attr("d", arc)
-          .style("fill", function(d) { return color(d.data); });
+    let arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+    
+    arcs.append("svg:path")
+        .attr("fill", function(d, i){return colors[i];})
+        .transition().delay(function(d,i) {return i * 300 }).duration(500)
+        .attrTween("d", function (b) {
+            b.innerRadius = 0;
+            let i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
+            return function(t) { return arc(i(t)); };
+        })
+        //.attr("d", function (d) {return arc(d)});
 
-      g.append("text")
-          .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-          .attr("dy", ".35em")
-          .text(function(d) { return d.data; });
+    arcs.append("svg:text")
+        .attr("transform", function(d){
+            d.innerRadius = 100;
+            d.outerRadius = r;
+            return "translate(" + arc.centroid(d) + ")";}
+        )
+        .attr("text-anchor", "middle")
+        .text( function(d, i) {return data[i].value});
+  }
+  
+  paintDonut(){
+
+    let width = 368, height = 364, radius = Math.min(width, height) / 2, data = [], color = [];
+    this.chartInfo.forEach(obj=>{
+        data.push({value:obj.data});
+        color.push(obj.color);
+    });
+    
+    d3.select("body").selectAll("div.pie-chart").html('');
+
+    let vis = d3.select(".pie-chart")
+                .append("svg")
+                .data([data])
+                .attr("width", width)
+                .attr("height", height)
+                .append("svg:g")
+                .attr('transform', 'translate(' + (width / 2) +  ',' + (height / 2) + ')');
+ 
+    let arc = d3.svg.arc().innerRadius(79).outerRadius(radius);
+ 
+    let pie = d3.layout.pie().value(function(d) { return d.value; });
+ 
+    let arcs = vis.selectAll("g.slice")
+                    .data(pie)
+       				.enter()
+            		.append("svg:g")
+                    .attr("class", "slice");
+ 
+    arcs.append("svg:path")
+            .attr("fill", function(d, i) { return color[i]; } )
+            .transition().delay(function(d,i) {return i * 500 }).duration(500)
+            .attrTween('d',function(d){
+            var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+            return function(t){
+                d.endAngle = i(t);
+                return arc(d);
+              }
+           })
+
+    arcs.append("svg:text")
+            .attr("fill", "#fff")
+            .attr("transform", function(d) {
+            d.innerRadius = 0;
+            d.outerRadius = radius;
+            return "translate(" + arc.centroid(d) + ")";
+        })
+        .attr("text-anchor", "middle")
+        .text(function(d, i) { return data[i].value; });
+
+  }
+
+  updateChart(type){
+    if(type === 'pie'){
+      this.paintPie();
+    }else if(type === 'donut'){
+      this.paintDonut();
+    }
   }
 
 }
