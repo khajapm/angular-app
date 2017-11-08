@@ -41,4 +41,5 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: |
+            docker tag angularapp khajapm/fullstackdemo-docker:dev
             docker push khajapm/fullstackdemo-docker
