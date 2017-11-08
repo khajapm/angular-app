@@ -38,3 +38,9 @@ jobs:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
             - /caches/angularapp.tar
+      - deploy:
+          name: Push application Docker image
+            command: |
+              if [ "$ {CIRCLE_BRANCH}" == "master" ]; then
+                docker push khajapm/fullstackdemo-docker
+              fi
