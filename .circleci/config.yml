@@ -40,5 +40,5 @@ jobs:
             - /caches/angularapp.tar
       - deploy:
           name: Push application Docker image
-            command: |
-                docker push khajapm/fullstackdemo-docker
+          command: |
+            docker push khajapm/fullstackdemo-docker
