@@ -12,13 +12,12 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-   
   }
 
-  recievedChartData(chartData){
-    if(chartData){
+  receivedChartData(chartData) {
+    if (chartData) {
        this.pieData = chartData;
-    }else{
+    }else {
       this.pieData = null;
     }
   }

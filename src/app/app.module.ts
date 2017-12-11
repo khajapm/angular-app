@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { PieComponent } from './pie/pie.component';
-import { appRoutes } from './app.routes'
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,6 @@ import { appRoutes } from './app.routes'
     ReactiveFormsModule,
     FormsModule,
 
-    //routes
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
