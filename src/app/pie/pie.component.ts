@@ -52,7 +52,7 @@ export class PieComponent implements OnChanges {
           this.chartInfo[index].color = color.toHexString();
         }
       });
-    })
+    });
   }
 
   editData(data, index) {
@@ -64,7 +64,7 @@ export class PieComponent implements OnChanges {
           data.color = color.toHexString();
         }
       });
-    })
+    });
   }
 
   //need to refactor later - remove it from side nav component
@@ -82,17 +82,17 @@ export class PieComponent implements OnChanges {
       .subscribe((res) => {
         data.editable = false;
         this.getAllChartData();
-      })
+      });
   }
 
   deleteData(data, index) {
     if (data.isNew) {
       this.chartInfo.splice(index, 1);
     } else {
-      this._http.post('/deletePie', data)
+      this._http.post('/removePie', data)
         .subscribe((res) => {
           this.getAllChartData();
-        })
+        });
     }
   }
 
