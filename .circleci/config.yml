@@ -3,19 +3,18 @@ jobs:
   build:
     working_directory: /app
     docker:
-      - image: docker:17.11.0-ce
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: Install dependencies
           command: |
-          apk add --no-cache \
-  py-pip=9.0.0-r1
-pip install \
-  docker-compose==1.12.0 \
-  awscli==1.11.76
-   
+            apk add --no-cache \
+              py-pip=9.0.0-r1
+            pip install \
+              docker-compose==1.12.0 \
+              awscli==1.11.76
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
@@ -42,12 +41,6 @@ pip install \
       - deploy:
           name: Push application Docker image
           command: |
-            docker tag angularapp khajapm/fullstackdemo-docker:dev-app
+            docker tag angularapp khajapm/fullstackdemo-docker:dev-ui
             docker login --username=${USER_NAME} --password=${USER_PASS}
             docker push khajapm/fullstackdemo-docker
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      
