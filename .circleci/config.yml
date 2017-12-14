@@ -41,7 +41,7 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: |
-            docker tag angularapp khajapm/fullstackdemo-docker:dev
+            docker tag angularapp khajapm/fullstackdemo-docker:dev-app
             docker login --username=${USER_NAME} --password=${USER_PASS}
             docker push khajapm/fullstackdemo-docker
 workflows:
