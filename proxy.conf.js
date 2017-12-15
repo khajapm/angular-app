@@ -1,7 +1,7 @@
 const PROXY_CONFIG = [
     {
         context: [
-            "/pie","/addPie","/removePie"
+            "/pie","/addPie","/removePie","editPie"
         ],
         target: "http://localhost:9000",
         secure: false
