@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { ForumService } from './forum.service';
+import { StoreService } from './services/store.service';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [HeaderComponent],
   imports: [],
   exports: [],
-  providers: [ForumService],
+  providers: [StoreService],
 })
 export class CoreModule { }

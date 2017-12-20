@@ -1,0 +1,63 @@
+.styling{
+    height: auto;
+    /*background-image:url('../../../assets/Pi Assets_Provider Insights Banner 2.svg') ; */
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin-bottom: 0;
+    position: relative;
+}
+
+.nav li{
+    font-size: 16pt;
+    text-align:center;
+    
+}
+.nav li a{
+   color: #0079C2;
+   padding-left: 30px;
+   padding-right: 30px;
+   padding-top: 25pt;
+}
+.col-md-1{
+    height: 50pt;
+    align-items:center;
+
+}
+.login-text-color{
+    font-size: 30px;
+}
+.user{
+    font-size: 13pt;
+    color: #666666;
+    font-style: italic;
+    top:20pt
+}
+.active{
+    font-weight: bold;
+}
+
+.nav-btn.active::after {
+    height: 0px;
+    width: 0px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #e7e7e7;
+    content: '';
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    margin-left: -5px;
+}
+
+.user-logo{
+    margin-top: 13%;
+    padding-left: 10px;
+    text-align: left !important;
+}
+
+
+
+.img{
+   width: 30%;
+   height: auto;
+}

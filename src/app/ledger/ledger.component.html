@@ -1,0 +1,20 @@
+
+<app-header></app-header>
+<nav class="navbar navbar-default">
+    <div class="subnav">
+      <ul class="nav navbar-nav subnav-style">
+          <li *ngFor="let tab of navigationTabs">
+              <span *ngIf="tab.title == '|';else other_content" class="bar-width">
+                {{ tab.title }}
+              </span>
+              <ng-template #other_content>
+                  <a class="nav-btn" [routerLink]="tab.url" routerLinkActive="active" 
+                    [ngClass]="{'ra' : tab.title == 'Reports'}">
+                      <span>{{ tab.title }}</span>
+                  </a>
+              </ng-template>
+          </li>
+        </ul> 
+      
+    </div>
+  </nav>

@@ -1,0 +1,53 @@
+<div id="capturedata">
+    <span>Capture store data</span>
+</div>
+<div id="storedata">
+  <table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Date</th>
+    <th>Agent name</th>
+    <th>#of Cattle</th>
+    <th>Cattle Type</th>
+    <th>Price</th>
+    <th>Gross weight</th>
+    <th>Total price</th>
+    <th>Comment</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let data of storeInfo; let i = index;">
+    <td>
+        <span>{{i}}</span>
+    </td>
+    <td>
+        <span *ngIf="!data.editable">{{data.data_size}}</span>
+        <span *ngIf="data.editable">
+            <input type="text" class="form-control" [(ngModel)]="data.data_size">
+        </span>
+    </td>
+    <td>
+        <span *ngIf="!data.editable">{{data.color | uppercase}}</span>
+        <!-- <span *ngIf="data.editable">
+            <input type="text" class="form-control" [(ngModel)]="data.color">
+        </span> -->
+        <span *ngIf="data.editable">
+            <input type="text" class="basic{{i}}" style="width:10px">
+        </span>
+    </td>
+    <td>
+        <span *ngIf="!data.editable" class="glyphicon glyphicon-plus" style="cursor:pointer" (click)="addData()"></span>
+        <span *ngIf="!data.editable" class="glyphicon glyphicon-pencil" style="cursor:pointer" (click)="editData(data,i)"></span>
+        <span *ngIf="!data.editable" class="glyphicon glyphicon-minus" style="cursor:pointer" (click)="deleteData(data,i)"></span>
+        <span *ngIf="data.editable" class="glyphicon glyphicon-ok" style="cursor:pointer" (click)="saveData(data)"></span>
+        <span *ngIf="data.editable" class="glyphicon glyphicon-remove" style="cursor:pointer" (click)="retainData(data,i)"></span>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<blockquote>
+  store works!
+</blockquote>

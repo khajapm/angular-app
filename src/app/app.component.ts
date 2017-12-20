@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-} 
+  private router;
+
+  constructor(router: Router) {
+    this.router = router;
+  }
+
+  public showHeader() {
+    return !this.router.isActive('/login');
+  }
+}

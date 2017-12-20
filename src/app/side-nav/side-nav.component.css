@@ -41,7 +41,7 @@
 .top-nav>.open>a:hover,
 .top-nav>.open>a:focus {
     color: #fff;
-    background-color: #1a242f;
+    background-color: #58789b;
 }
 
 .top-nav>.open>.dropdown-menu {
@@ -71,7 +71,7 @@
         border-radius: 0;
         border-top: 1px rgba(0,0,0,.5) solid;
         overflow-y: auto;
-        background-color: #4d1b90;
+        background-color: #4524d8;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
@@ -89,7 +89,7 @@
     }
 }
 .navbar-inverse{
-    background-color: #4d1b90;
+    background-color: #4524d8;
 }
 .side-nav>li>ul {
     padding: 0;

@@ -109,7 +109,7 @@ export class PieComponent implements OnChanges {
 
     let w = 400, h = 400, r = h / 2, data = [], colors = [];
     this.chartInfo.forEach(obj => {
-      data.push({ value: obj.data });
+      data.push({ value: obj.data_size });
       colors.push(obj.color);
     });
 
@@ -148,7 +148,7 @@ export class PieComponent implements OnChanges {
 
     let width = 368, height = 364, radius = Math.min(width, height) / 2, data = [], color = [];
     this.chartInfo.forEach(obj => {
-      data.push({ value: obj.data });
+      data.push({ value: obj.data_size });
       color.push(obj.color);
     });
 

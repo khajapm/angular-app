@@ -1,0 +1,21 @@
+<nav class="navbar navbar-default styling ">
+    <div>
+      <div class="navbar-header col-md-10">
+        <div class="row">
+          <div class="col-md-3">
+            <a class="navbar-brand" href="#"></a>
+          </div>
+          <div class="col-md-9">
+            <ul class="nav navbar-nav">
+              <li *ngFor="let button of getNavigation()">
+                <a class="nav-btn" [routerLink]="button.url">
+                  {{ button.title }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      </div>
+</nav>
+

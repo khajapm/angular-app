@@ -16,8 +16,8 @@ export class HomeComponent implements OnInit {
 
   receivedChartData(chartData) {
     if (chartData) {
-       this.pieData = chartData;
-    }else {
+      this.pieData = chartData;
+    } else {
       this.pieData = null;
     }
   }

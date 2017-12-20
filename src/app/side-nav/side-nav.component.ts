@@ -10,8 +10,8 @@ import 'rxjs/add/operator/map';
 })
 export class SideNavComponent implements OnInit, AfterContentInit {
 
-  @Output() private emitChartData : EventEmitter<any> = new EventEmitter();
-  @ViewChild('chartOptions') private chartOptions:ElementRef;
+  @Output() private emitChartData: EventEmitter<any> = new EventEmitter();
+  @ViewChild('chartOptions') private chartOptions: ElementRef;
   private chartType: String;
 
   constructor(private _http: Http) { }
@@ -19,23 +19,23 @@ export class SideNavComponent implements OnInit, AfterContentInit {
   ngOnInit() {
   }
 
-  ngAfterContentInit(){
+  ngAfterContentInit() {
     this.chartOptions.nativeElement.click();
     this.showViz('pie');
     this.chartType = 'pie';
   }
 
-  showViz(chartType:string) {
+  showViz(chartType: string) {
     this.chartType = chartType;
     this._http.get('/pie')
       .map((response: Response) => <any>response.json())
       .subscribe((data) => {
         let actualData = {
-          data:data,
-          type:chartType
+          data: data,
+          type: chartType
         }
         this.emitChartData.emit(actualData);
-      })
+      });
   }
 
 }

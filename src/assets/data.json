@@ -1,42 +1,20 @@
 {
-    "reportId": "Rpt10000101",
-    "reportName": "School Grades",
-    "reportUrl": "http://public.tableau.com/views/RegionalSampleWorkbook/College",
-    "reportDate": "10/1/2017",
-    "lastUpdated":"10/1/2017",
-    "comments": [
-        {
+    "dataId": "11",
+    "transactDate": "10/1/2017",
+    "agentName": "khaja",
+    "cattleCount": 2,
+    "cattleType": "a",
+    "grossWeight": 12,
+    "price": 4100,
+    "totalPrice": 8200,
+    "userId": 101,
+    "lastUpdated": "test",
+    "comment": 
+     {
         "commentId": "c100001",
         "userId": "af31896",
         "timestamp" : "10/3/2017",
         "commentText": "First comment to the report",
-        "responded": true,
-        "responses": [
-            {
-            "responseId" : "r10001",
-            "userId": "af31896",
-            "timestamp": "10/3/2017",
-            "responseText" : "first response to the comment"
-            }
-            ]
-        },
-        {
-        "commentId": "c100002",
-        "userId": "af31896",
-        "timestamp" : "10/1/2017",
-        "commentText": "2nd comment to the report",
-        "responded": true,
-        "responses": [
-            {
-            "responseId" : "r10002",
-            "userId": "af31896",
-            "timestamp": "10/2/2017",
-            "responseText" : "2nd response to the comment"
-            }
-            ]
-        },
-        {},
-        {}
-    ]
-
+        "responded": true
+    }
 } 

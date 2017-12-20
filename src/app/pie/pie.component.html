@@ -13,9 +13,9 @@
             <span>{{data.id}}</span>
         </td>
         <td>
-            <span *ngIf="!data.editable">{{data.data}}</span>
+            <span *ngIf="!data.editable">{{data.data_size}}</span>
             <span *ngIf="data.editable">
-                <input type="text" class="form-control" [(ngModel)]="data.data">
+                <input type="text" class="form-control" [(ngModel)]="data.data_size">
             </span>
         </td>
         <td>
