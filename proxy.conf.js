@@ -3,7 +3,7 @@ const PROXY_CONFIG = [
         context: [
             "/pie","/addPie","/removePie","editPie"
         ],
-        target: "http://localhost:9000",
+        target: "http://springms:8087",
         secure: false
     }
 ]
